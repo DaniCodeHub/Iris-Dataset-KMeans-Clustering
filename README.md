@@ -1,0 +1,1 @@
+Iris dataset analysis using KMeans clustering estimator from scikit learn. Created an elbow graph to determine the optimal number of clusters. Plotted the first two features of the dataset on a scatterplot along with the centroids predicted by KMeans. Used GridSearchCV to ensure that the chosen paramters 'init' and 'algorithm' are the most optimal. 
