@@ -87,3 +87,39 @@ plt.legend(handles=legend_elements)
 
 plt.show()
 
+#Use GridSearchCV to optimize hyperparameters of the KMeans estimator
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import make_scorer
+
+#KMeans parameters:
+'''KMeans(
+    n_clusters=8,
+    *,
+    init='k-means++',
+    n_init='auto',
+    max_iter=300,
+    tol=0.0001,
+    verbose=0,
+    random_state=None,
+    copy_x=True,
+    algorithm='lloyd',
+)'''
+
+
+#Parameters that will be optimized in GridSearchCV
+p_grid = {'init': ['k-means++', 'random'],
+          'algorithm': ['lloyd', 'elkan'],
+}
+
+
+#Input chosen parameters into GridSearchCV and fit to X values 'data'
+grid_search = GridSearchCV(KMean_model, param_grid=p_grid, cv=5)
+
+grid_search.fit(X)
+
+#Create a pandas dataframe to see results and pick best estimator
+pd.DataFrame(grid_search.cv_results_).iloc[:, 4:].sort_values('rank_test_score', ascending=False)
+
+#GridSearchCV simply confirms that the default parameters are the most optimal
+grid_search.best_index_
+
